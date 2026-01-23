@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@theme {
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-primary: #1B2A41;
+  --color-secondary: #E29578;
+  --color-accent: #F4D35E;
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .highlight-marker {
+    background: linear-gradient(120deg, #F4D35E 0%, #F4D35E 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 30%;
+    background-position: 0 90%;
+  }
+}
+
+/* Global Styles */
+@layer base {
+  body {
+    background-color: #F9FAFB;
+    margin: 0;
+  }
+}
