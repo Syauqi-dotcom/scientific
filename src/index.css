@@ -2,6 +2,16 @@
 
 @import "tailwindcss";
 
+/* Hide scrollbar utility */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 @plugin "tailwindcss-animate";
 
 @theme {
@@ -30,4 +40,87 @@
     background-color: #F9FAFB;
     margin: 0;
   }
+}
+
+/* ===== Marquee Animations ===== */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes heroEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Marquee track animations */
+.marquee-track {
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-track-reverse {
+  animation: marquee-scroll-reverse 30s linear infinite;
+}
+
+/* Speed variants */
+.marquee-fast {
+  animation-duration: 22s;
+}
+
+.marquee-slow {
+  animation-duration: 40s;
+}
+
+/* Floating effect on individual items */
+.marquee-float {
+  animation: marquee-float 3s ease-in-out infinite;
+}
+
+/* Subtle tilt for rows — creative diagonal feel */
+.marquee-tilt-down {
+  transform: rotate(-1deg);
+}
+
+.marquee-tilt-up {
+  transform: rotate(0.8deg);
+}
+
+/* Pause all marquee animations on hover */
+.marquee-container:hover .marquee-track,
+.marquee-container:hover .marquee-track-reverse {
+  animation-play-state: paused;
 }

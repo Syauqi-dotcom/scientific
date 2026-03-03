@@ -1,5 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { THEME } from '../../config/theme';
+
+// Theme colors (inlined after config/theme.js cleanup)
+const THEME = {
+    colors: {
+        primary: '#1B2A41',
+        secondary: '#E29578',
+        lines: 'rgba(27, 42, 65, 0.08)',
+    },
+};
 
 const Background = ({ scrollY }) => {
     const canvasRef = useRef(null);
