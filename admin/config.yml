@@ -69,3 +69,4 @@ collections:
       - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", dateFormat: "YYYY-MM-DD", timeFormat: false}
       - {label: "Tag", name: "tag", widget: "string"}
       - {label: "Snippet", name: "snippet", widget: "text"}
+      - {label: "More Explanation", name: "explanation", widget: "text", required: false}
