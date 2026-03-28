@@ -46,7 +46,9 @@ collections:
       - {label: "Credit", name: "credit", widget: "string"}
       - {label: "Link URL", name: "link", widget: "string"}
       - {label: "Preview Image", name: "preview", widget: "image"}
-      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Overview", name: "overview", widget: "text"}
+      - {label: "Technology Development", name: "development", widget: "text", required: false}
+      - {label: "Result", name: "result", widget: "text", required: false}
       - label: "Tags"
         name: "tags"
         widget: "list"
