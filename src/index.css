@@ -19,15 +19,17 @@
   --font-serif: 'Playfair Display', serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-primary: #1B2A41;
-  --color-secondary: #E29578;
-  --color-accent: #F4D35E;
+  --color-background: #EFF1F3;
+  --color-primary: #16161D;
+  --color-accent: #A3785B;
+  --color-muted: #686F7A;
+  --color-detail: #DDE1E6;
 }
 
 /* Custom Utilities */
 @layer utilities {
   .highlight-marker {
-    background: linear-gradient(120deg, #F4D35E 0%, #F4D35E 100%);
+    background: linear-gradient(120deg, #DDE1E6 0%, #DDE1E6 100%);
     background-repeat: no-repeat;
     background-size: 100% 30%;
     background-position: 0 90%;
@@ -36,8 +38,12 @@
 
 /* Global Styles */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    background-color: #F9FAFB;
+    background-color: #EFF1F3;
     margin: 0;
   }
 }
@@ -90,10 +96,12 @@
 /* Marquee track animations */
 .marquee-track {
   animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
 }
 
 .marquee-track-reverse {
   animation: marquee-scroll-reverse 30s linear infinite;
+  will-change: transform;
 }
 
 /* Speed variants */

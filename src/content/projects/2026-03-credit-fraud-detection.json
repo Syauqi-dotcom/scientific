@@ -1,0 +1,20 @@
+{
+  "link": "https://docs.google.com/presentation/d/1hevUZiXDlQdRoLziiVNupCD7APB4X82n/edit?slide=id.p1#slide=id.p1",
+  "title": "Credit Fraud Detection",
+  "date": "2025",
+  "credit": "Quantum Algorithm",
+  "preview": "/scientific/projects/genq.jpeg",
+  "tags": [
+    "Qiskit",
+    "SVM"
+  ],
+  "collaborators": [
+    "/scientific/projects/qai_logo_with_symbol_black1.webp",
+    "/scientific/projects/dbs_asia-removebg.webp",
+    "/scientific/projects/ugm.png"
+  ],
+  "overview": "I developed this project with my team during a 48-hour hackathon as an investor-ready pitch deck without further technical development.",
+  "development": "It proposes a Quantum Kernel Support Vector Machine (QSVM) to tackle the global credit card fraud crisis by encoding transactions into quantum states and using least-squares optimized observables.",
+  "result": "This approach achieved a significant 80% accuracy gain over classical models, reaching a robust 0.92 accuracy to enhance bank stability and minimize costs.",
+  "category": "AI"
+}

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { callGemini } from './utils/gemini';
 import './index.css';
-import heroPhoto from './assets/foto (1).webp';
-import heroPhoto2 from './assets/foto2.webp';
+const heroPhoto = `${import.meta.env.BASE_URL}assets/foto (1).webp`;
+const heroPhoto2 = `${import.meta.env.BASE_URL}assets/foto2.webp`;
 
 // Components
 import CustomCursor from './components/atoms/CustomCursor';
@@ -11,6 +10,7 @@ import Navigation from './components/atoms/Navigation';
 import HeroSection from './components/sections/HeroSection';
 import ProfileSection from './components/sections/ProfileSection';
 import ProjectsSection from './components/sections/ProjectsSection';
+import GithubSection from './components/sections/GithubSection';
 import NotebookSection from './components/sections/NotebookSection';
 import Footer from './components/sections/Footer';
 import TechStackMarquee from './components/sections/TechStackMarquee';
@@ -43,26 +43,29 @@ const Portfolio = () => {
 
     // Handlers
 
-    const handleExpandNote = async (index, title, snippet) => {
+    const handleExpandNote = async (index, explanation) => {
         if (expandedNotes[index]) {
             setExpandedNotes(prev => { const n = { ...prev }; delete n[index]; return n; });
             return;
         }
         setExpandingNoteId(index);
-        const text = await callGemini(`Expand note: "${title}" - "${snippet}" into a short poetic paragraph.`);
-        setExpandedNotes(prev => ({ ...prev, [index]: text }));
+
+        // Mempertahankan animasi efek loading spinner agar tetap terasa interaktif
+        await new Promise(resolve => setTimeout(resolve, 600));
+
+        setExpandedNotes(prev => ({ ...prev, [index]: explanation || "No explanation provided for this note yet." }));
         setExpandingNoteId(null);
     };
 
     return (
-        <div className="relative min-h-screen text-[#1B2A41] font-sans selection:bg-[#E29578] selection:text-[#1B2A41]">
+        <div className="relative min-h-screen text-[#16161D] font-sans selection:bg-[#A3785B] selection:text-[#16161D]">
             <CustomCursor />
             <Background scrollY={scrollY} />
             <Navigation activeSection={activeSection} />
 
             <main>
                 <HeroSection
-                    tagline={<span>Hi! I'm, <TypeWriter text="Syauqi." speed={120} delay={800} className="italic text-[#E29578]" cursorClassName="text-[#E29578]/60 font-light" /></span>}
+                    tagline={<span>Hi! I'm, <TypeWriter text="Syauqi." speed={120} delay={800} className="italic text-[#A3785B]" cursorClassName="text-[#A3785B]/60 font-light" /></span>}
                     heroImage={heroPhoto}
                     heroBackImage={heroPhoto2}
                 />
@@ -70,14 +73,13 @@ const Portfolio = () => {
                 <ProfileSection />
 
                 <TechStackMarquee />
-
                 <ProjectsSection />
                 <NotebookSection
                     expandedNotes={expandedNotes}
                     expandingNoteId={expandingNoteId}
                     handleExpandNote={handleExpandNote}
                 />
-
+                <GithubSection />
                 <Footer />
             </main>
         </div>

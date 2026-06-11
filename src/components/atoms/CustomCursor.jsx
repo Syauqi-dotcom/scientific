@@ -15,8 +15,8 @@ const CustomCursor = () => {
             style={{ left: cursorPos.x, top: cursorPos.y, transform: 'translate(-50%, -50%)' }}
         >
             <div className="relative">
-                <div className="w-3 h-3 bg-[#1B2A41] rounded-full opacity-80" />
-                <div className="absolute w-8 h-8 border border-[#1B2A41] rounded-full opacity-20 animate-ping" style={{ animationDuration: '2s' }} />
+                <div className="w-3 h-3 bg-[#16161D] rounded-full opacity-80" />
+                <div className="absolute w-8 h-8 border border-[#16161D] rounded-full opacity-20 animate-ping" style={{ animationDuration: '2s' }} />
             </div>
         </div>
     );

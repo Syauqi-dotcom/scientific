@@ -1,0 +1,20 @@
+{
+  "preview": "/scientific/projects/brin2026.jpeg",
+  "collaborators": [
+    "/scientific/assets/brin.png",
+    "/scientific/projects/ugm.png"
+  ],
+  "date": "2026",
+  "title": "VQE Algorithm",
+  "tags": [
+    "Python",
+    "Qiskit",
+    "Chemistry"
+  ],
+  "overview": "I implemented the Variational Quantum Eigensolver (VQE) algorithm to determine the hydrogen molecule's ground-state energy, providing a computational proof of concept for quantum advantage\n\n",
+  "credit": "Quantum Algorithm",
+  "link": "https://github.com/Syauqi-dotcom/BRIN-Internship-2026",
+  "development": "",
+  "result": "",
+  "category": "Quantum"
+}

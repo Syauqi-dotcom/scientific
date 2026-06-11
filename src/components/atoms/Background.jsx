@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from 'react';
 // Theme colors (inlined after config/theme.js cleanup)
 const THEME = {
     colors: {
-        primary: '#1B2A41',
-        secondary: '#E29578',
+        primary: '#16161D',
+        secondary: '#A3785B',
         lines: 'rgba(27, 42, 65, 0.08)',
     },
 };
@@ -171,7 +171,7 @@ const Background = ({ scrollY }) => {
     }, []);
 
     return (
-        <div className="fixed inset-0 -z-10 overflow-hidden bg-[#F9FAFB]">
+        <div className="fixed inset-0 -z-10 overflow-hidden bg-[#EFF1F3]">
             {/* Subtle Grid Texture Background */}
             <div className="absolute inset-0"
                 style={{

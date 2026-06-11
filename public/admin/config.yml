@@ -1,0 +1,74 @@
+backend:
+  name: github
+  repo: Syauqi-dotcom/scientific
+  branch: main
+
+local_backend: true
+
+media_folder: "public/projects"
+public_folder: "/scientific/projects"
+
+collections:
+  - name: "profile"
+    label: "Global Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: "Profile Content"
+        name: "profile"
+        file: "src/content/profile.json"
+        fields:
+          - {label: "Site Name (Logo Text)", name: "siteName", widget: "string"}
+          - {label: "Author Name", name: "authorName", widget: "string"}
+          - {label: "Author Role", name: "authorRole", widget: "string"}
+          - {label: "Tagline", name: "tagline", widget: "string"}
+          - {label: "Description", name: "description", widget: "text"}
+          - label: "Social Links"
+            name: "socials"
+            widget: "object"
+            fields:
+              - {label: "GitHub", name: "github", widget: "string"}
+              - {label: "LinkedIn", name: "linkedin", widget: "string"}
+              - {label: "Twitter", name: "twitter", widget: "string"}
+              - {label: "Email", name: "email", widget: "string"}
+
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Year", name: "date", widget: "string"}
+      - {label: "Credit", name: "credit", widget: "string"}
+      - {label: "Link URL", name: "link", widget: "string"}
+      - {label: "Preview Image", name: "preview", widget: "image"}
+      - {label: "Overview", name: "overview", widget: "text"}
+      - {label: "Technology Development", name: "development", widget: "text", required: false}
+      - {label: "Result", name: "result", widget: "text", required: false}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+      - label: "Collaborators (Logo List)"
+        name: "collaborators"
+        widget: "list"
+        required: false
+        field: {label: "Logo Image", name: "logo", widget: "image"}
+          
+  - name: "notebook"
+    label: "Research Notes"
+    folder: "src/content/notebook"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", dateFormat: "YYYY-MM-DD", timeFormat: false}
+      - {label: "Tag", name: "tag", widget: "string"}
+      - {label: "Snippet", name: "snippet", widget: "text"}
+      - {label: "More Explanation", name: "explanation", widget: "text", required: false}

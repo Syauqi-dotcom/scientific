@@ -1,65 +1,73 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight } from 'lucide-react';
+import { ScrollReveal } from '../../utils/useScrollReveal';
+
+const notebookModules = import.meta.glob('../../content/notebook/*.json', { eager: true });
+const notebookEntries = Object.values(notebookModules).map(mod => mod.default || mod).sort((a,b) => new Date(b.date) - new Date(a.date));
 
 const NoteCard = ({ index, note, expanded, onExpand, isExpanding }) => (
-    <div className="bg-white p-6 rounded-xl border border-[#1B2A41]/10 hover:border-[#E29578] transition-colors relative group">
+    <div className="bg-white p-6 rounded-xl border border-[#16161D]/10 hover:border-[#A3785B] transition-colors relative group h-full flex flex-col justify-between">
+        <div>
         <div className="flex justify-between items-center mb-3">
-            <span className="font-mono text-xs text-[#E29578] font-bold">{note.date}</span>
-            <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-[#F9FAFB] text-[#1B2A41]/60">{note.tag}</span>
+            <span className="font-mono text-xs text-[#A3785B] font-bold">{note.date}</span>
+            <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-[#EFF1F3] text-[#16161D]/60">{note.tag}</span>
         </div>
-        <h3 className="font-serif text-lg font-bold text-[#1B2A41] mb-2">{note.title}</h3>
-        <p className="text-sm text-[#1B2A41]/60 font-light leading-relaxed mb-4">"{note.snippet}"</p>
+        <h3 className="font-serif text-lg font-bold text-[#16161D] mb-2">{note.title}</h3>
+        <p className="text-sm text-[#16161D]/60 font-light leading-relaxed mb-4 whitespace-pre-wrap">"{note.snippet}"</p>
 
-        <button
-            onClick={() => onExpand(index, note.title, note.snippet)}
-            disabled={isExpanding}
-            className="flex items-center gap-2 text-xs font-mono text-[#1B2A41]/40 hover:text-[#E29578] transition-colors"
-        >
-            {isExpanding ? (
-                <><span className="animate-spin">✨</span> PROCESSING...</>
-            ) : (
-                <><Sparkles size={12} /> {expanded ? 'COLLAPSE' : 'EXPAND WITH AI'}</>
+        </div>
+        <div>
+            <button
+                onClick={() => onExpand(index, note.explanation)}
+                disabled={isExpanding}
+                className="flex items-center gap-2 text-xs font-mono text-[#16161D]/40 hover:text-[#A3785B] transition-colors mt-auto pt-2"
+            >
+                {isExpanding ? (
+                    <><span className="animate-spin">✨</span> PROCESSING...</>
+                ) : (
+                    <><Sparkles size={12} /> {expanded ? 'COLLAPSE' : 'MORE EXPLANATION'}</>
+                )}
+            </button>
+
+            {expanded && typeof expanded === 'string' && (
+                <div className="mt-4 pt-4 border-t border-[#16161D]/5 text-xs text-[#16161D]/80 leading-relaxed italic animate-in fade-in slide-in-from-top-2 whitespace-pre-wrap">
+                    {expanded}
+                </div>
             )}
-        </button>
-
-        {expanded && typeof expanded === 'string' && (
-            <div className="mt-4 pt-4 border-t border-[#1B2A41]/5 text-xs text-[#1B2A41]/80 leading-relaxed italic animate-in fade-in slide-in-from-top-2">
-                {expanded}
-            </div>
-        )}
+        </div>
     </div>
 );
 
 const NotebookSection = ({ expandedNotes, expandingNoteId, handleExpandNote }) => {
-    const featuredNotes = [
-        { title: "Understanding Hadamard", date: "2025-01-15", tag: "Quantum", snippet: "It creates superposition, but mathematically it feels like a rotation in Hilbert space..." },
-        { title: "Sunsets & Entropy", date: "2025-01-02", tag: "Reflection", snippet: "The gradient of colors is just distinct wavelengths diffusing... much like information loss." }
-    ];
+    const featuredNotes = notebookEntries.slice(0, 2);
 
     return (
         <section id="notebook" className="py-24 px-6">
             <div className="max-w-4xl mx-auto">
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="font-serif text-2xl text-[#1B2A41]">Research Notes</h2>
-                    <Link
-                        to="/publications"
-                        className="flex items-center gap-2 text-xs font-mono text-[#1B2A41]/40 hover:text-[#E29578] transition-colors group"
-                    >
-                        <span className="uppercase tracking-wider font-bold">Publications</span>
-                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                </div>
+                <ScrollReveal delay={0} direction="up">
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="font-serif text-2xl text-[#16161D]">Research Notes</h2>
+                        <Link
+                            to="/publications"
+                            className="flex items-center gap-2 text-xs font-mono text-[#16161D]/40 hover:text-[#A3785B] transition-colors group"
+                        >
+                            <span className="uppercase tracking-wider font-bold">Publications</span>
+                            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                    </div>
+                </ScrollReveal>
                 <div className="grid md:grid-cols-2 gap-4">
                     {featuredNotes.map((note, idx) => (
-                        <NoteCard
-                            key={idx}
-                            index={idx}
-                            note={note}
-                            expanded={expandedNotes[idx]}
-                            onExpand={handleExpandNote}
-                            isExpanding={expandingNoteId === idx}
-                        />
+                        <ScrollReveal key={idx} delay={0.1 * (idx + 1)} direction="up" className="h-full">
+                            <NoteCard
+                                index={idx}
+                                note={note}
+                                expanded={expandedNotes[idx]}
+                                onExpand={handleExpandNote}
+                                isExpanding={expandingNoteId === idx}
+                            />
+                        </ScrollReveal>
                     ))}
                 </div>
             </div>

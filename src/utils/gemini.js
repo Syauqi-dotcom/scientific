@@ -1,4 +1,6 @@
-const apiKey = "";
+// API key loaded from environment variable (.env.local)
+// To use: create .env.local with VITE_GEMINI_API_KEY=your_key_here
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
 
 const MOCK_RESPONSES = [
     "Entropy is just information hiding in the shadows.",

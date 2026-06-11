@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "cms": "npx decap-server"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "react-github-calendar": "^5.0.5",
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {

@@ -29,6 +29,7 @@ const row2Techs = [
     { name: 'Jupyter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg' },
     { name: 'NumPy', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg' },
     { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg' },
+    { name: 'Qiskit', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/qiskit/qiskit-original.svg' },
 ];
 
 const TechItem = ({ name, icon, index }) => (
@@ -36,9 +37,9 @@ const TechItem = ({ name, icon, index }) => (
         className="marquee-item group flex flex-col items-center gap-2 px-6 md:px-8 flex-shrink-0"
         style={{ animationDelay: `${index * 0.15}s` }}
     >
-        <div className="relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-xl bg-white/80 border border-[#1B2A41]/8 shadow-sm
-                    group-hover:shadow-lg group-hover:shadow-[#E29578]/20 group-hover:border-[#E29578]/30 group-hover:scale-110
-                    transition-all duration-300 ease-out backdrop-blur-sm marquee-float">
+        <div className="relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-xl bg-white/80 border border-[#16161D]/8 shadow-sm
+                    group-hover:shadow-lg group-hover:shadow-[#A3785B]/20 group-hover:border-[#A3785B]/30 group-hover:scale-110
+                    transition-all duration-300 ease-out md:backdrop-blur-sm marquee-float">
             <img
                 src={icon}
                 alt={name}
@@ -48,9 +49,9 @@ const TechItem = ({ name, icon, index }) => (
                 loading="lazy"
             />
             {/* Glow effect on hover */}
-            <div className="absolute inset-0 rounded-xl bg-[#E29578]/0 group-hover:bg-[#E29578]/5 transition-colors duration-300" />
+            <div className="absolute inset-0 rounded-xl bg-[#A3785B]/0 group-hover:bg-[#A3785B]/5 transition-colors duration-300" />
         </div>
-        <span className="text-[10px] md:text-xs font-mono text-[#1B2A41]/30 group-hover:text-[#E29578] transition-colors duration-300 whitespace-nowrap">
+        <span className="text-[10px] md:text-xs font-mono text-[#16161D]/30 group-hover:text-[#A3785B] transition-colors duration-300 whitespace-nowrap">
             {name}
         </span>
     </div>
@@ -73,22 +74,22 @@ const MarqueeRow = ({ techs, direction = 'left', speed = 'normal', className = '
 };
 
 const TechStackMarquee = () => (
-    <section className="py-16 md:py-24 relative overflow-hidden">
+    <section className="hidden md:block py-16 md:py-24 relative overflow-hidden">
         {/* Section Header */}
         <div className="max-w-6xl mx-auto px-6 mb-12 md:mb-16">
             <div className="flex items-center gap-4">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#E29578]/30 to-transparent" />
-                <h2 className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[#1B2A41]/40 font-bold">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#A3785B]/30 to-transparent" />
+                <h2 className="font-mono text-xs md:text-sm uppercase tracking-[0.3em] text-[#16161D]/40 font-bold">
                     Languages & Tools
                 </h2>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#E29578]/30 to-transparent" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#A3785B]/30 to-transparent" />
             </div>
         </div>
 
         {/* Background gradient overlay */}
         <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-[#F9FAFB] to-transparent z-10" />
-            <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-[#F9FAFB] to-transparent z-10" />
+            <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-[#EFF1F3] to-transparent z-10" />
+            <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-[#EFF1F3] to-transparent z-10" />
         </div>
 
         {/* Marquee Rows — 2 rows, staggered speeds and directions */}

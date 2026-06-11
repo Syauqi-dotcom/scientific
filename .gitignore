@@ -1,0 +1,50 @@
+# =============================================
+# Dependencies
+# =============================================
+node_modules/
+
+# =============================================
+# Build Output (deployed via gh-pages separately)
+# =============================================
+dist/
+
+# =============================================
+# Environment Variables (API keys, secrets)
+# =============================================
+.env
+.env.local
+.env.production
+.env.*.local
+
+# =============================================
+# IDE & Editor Settings
+# =============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# =============================================
+# Logs
+# =============================================
+*.log
+npm-debug.log*
+
+# =============================================
+# OS Generated
+# =============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# =============================================
+# Personal / Sensitive Assets
+# NOTE: All public/ assets (photos, project images, favicons)
+# are tracked in git to ensure the portfolio displays correctly.
+# =============================================
