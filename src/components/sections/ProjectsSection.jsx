@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import profileData from '../../content/profile.json';
 import { ScrollReveal } from '../../utils/useScrollReveal';
+import SectionLabel from '../atoms/SectionLabel';
 
 const projectModules = import.meta.glob('../../content/projects/*.json', { eager: true });
 const allProjects = Object.values(projectModules).map(mod => mod.default || mod).sort((a, b) => b.date - a.date);
@@ -30,21 +31,28 @@ const ProjectCard = ({ title, desc, tags, link }) => (
 );
 
 const ProjectsSection = () => (
-    <section id="projects" className="py-24 px-6 border-b border-[#16161D]/5 bg-[#FAFAF9]/30">
+    <section id="projects" className="py-24 px-6 border-t border-[#16161D]/5">
         <div className="max-w-6xl mx-auto">
+
+            {/* Split header: numbered label + title/links */}
             <ScrollReveal delay={0} direction="up">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-                    <div>
-                        <h2 className="font-serif text-3xl md:text-4xl text-[#16161D] mb-4">Selected Works</h2>
-                        <p className="text-[#16161D]/60 font-light">{profileData.tagline}</p>
+                <div className="grid md:grid-cols-[200px_1fr] gap-8 mb-14">
+                    <div className="pt-1">
+                        <SectionLabel index={1} label="Selected Works" />
                     </div>
-                    <div className="flex items-center gap-6 mt-4 md:mt-0">
-                        <Link to="/projects" className="text-[#A3785B] hover:text-[#16161D] flex items-center gap-2 font-mono text-sm group transition-colors border-b border-[#A3785B]/30 hover:border-[#16161D] pb-0.5">
-                            VIEW ALL <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <a href={profileData.socials.github} target="_blank" rel="noopener noreferrer" className="text-[#16161D]/60 hover:text-[#A3785B] flex items-center gap-2 font-mono text-sm group transition-colors border-b border-transparent hover:border-[#A3785B] pb-0.5">
-                            GITHUB <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                        </a>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
+                        <div>
+                            <h2 className="font-serif text-3xl md:text-4xl text-[#16161D] mb-3">Selected Works</h2>
+                            <p className="text-[#16161D]/50 font-light text-sm">{profileData.tagline}</p>
+                        </div>
+                        <div className="flex items-center gap-6 mt-4 md:mt-0 shrink-0">
+                            <Link to="/projects" className="text-[#A3785B] hover:text-[#16161D] flex items-center gap-2 font-mono text-xs group transition-colors border-b border-[#A3785B]/30 hover:border-[#16161D] pb-0.5 uppercase tracking-wider">
+                                View All <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                            <a href={profileData.socials.github} target="_blank" rel="noopener noreferrer" className="text-[#16161D]/50 hover:text-[#A3785B] flex items-center gap-2 font-mono text-xs group transition-colors border-b border-transparent hover:border-[#A3785B] pb-0.5 uppercase tracking-wider">
+                                GitHub <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </ScrollReveal>

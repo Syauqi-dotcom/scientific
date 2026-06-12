@@ -5,27 +5,30 @@ import TypeWriter from '../components/atoms/TypeWriter';
 import Navigation from '../components/atoms/Navigation';
 import profileData from '../content/profile.json';
 
-// Load all projects dynamically from CMS JSON files
-const projectModules = import.meta.glob('../content/projects/*.json', { eager: true });
-const projects = Object.values(projectModules).map(mod => mod.default || mod).sort((a, b) => b.date - a.date);
+import { getStoredProjects } from '../utils/projectsStore';
 
 // ========== Page Component ==========
-const ProjectsPage = () => {
+const ProjectsPage = ({ bgAnimationDisabled, toggleBgAnimation }) => {
     const [hoveredProject, setHoveredProject] = useState(null);
-    const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
-    const [isSearchActive, setIsSearchActive] = useState(false);
     const [isNavHovered, setIsNavHovered] = useState(false);
+    const [projects, setProjects] = useState([]);
 
-    const categories = ['All', 'Quantum', 'AI', 'Website', 'Other'];
+    useEffect(() => {
+        const load = () => {
+            setProjects(getStoredProjects());
+        };
+        load();
+        window.addEventListener('portfolio_projects_updated', load);
+        return () => window.removeEventListener('portfolio_projects_updated', load);
+    }, []);
 
     const filteredProjects = projects.filter(project => {
-        const matchesCategory = activeCategory === 'All' || project.category === activeCategory;
         const searchLower = searchQuery.toLowerCase();
         const matchesSearch = !searchQuery ||
             (project.title && project.title.toLowerCase().includes(searchLower)) ||
             (project.tags && project.tags.some(tag => tag.toLowerCase().includes(searchLower)));
-        return matchesCategory && matchesSearch;
+        return matchesSearch;
     });
 
     useEffect(() => {
@@ -35,10 +38,16 @@ const ProjectsPage = () => {
     return (
         <div className="h-screen w-screen overflow-hidden relative bg-[#EFF1F3] text-[#16161D] font-sans selection:bg-[#A3785B] selection:text-[#16161D]">
             
-            <Navigation activeSection="projects" hoverMode={true} onHoverChange={setIsNavHovered} />
+            <Navigation
+                activeSection="projects"
+                hoverMode={true}
+                onHoverChange={setIsNavHovered}
+                bgAnimationDisabled={bgAnimationDisabled}
+                toggleBgAnimation={toggleBgAnimation}
+            />
 
             {/* Main bordered frame */}
-            <div className={`relative z-10 h-full w-full p-4 md:p-6 transition-all duration-500 ease-in-out ${isNavHovered ? 'pt-[80px] md:pt-[80px]' : 'pt-6'}`}>
+            <div className={`relative z-10 h-full w-full pb-4 px-4 md:pb-6 md:px-6 transition-all duration-500 ease-in-out ${isNavHovered ? 'pt-24 md:pt-[88px]' : 'pt-4 md:pt-6'}`}>
                 <div className="h-full w-full border-2 border-[#16161D]/15 rounded-lg flex flex-col md:flex-row overflow-hidden relative">
 
                     {/* === LEFT SIDEBAR === */}
@@ -150,10 +159,29 @@ const ProjectsPage = () => {
                         )}
                     </div>
 
-                    {/* === RIGHT: PROJECT LIST & FILTER BAR === */}
+                    {/* === RIGHT: PROJECT LIST === */}
                     <div className="flex-1 flex overflow-hidden relative z-20">
+                        {/* Floating Search Bar */}
+                        <div className="absolute top-4 right-4 md:right-6 z-30">
+                            <div className="flex items-center gap-2 bg-white/70 backdrop-blur-md border border-[#16161D]/10 rounded-full px-3 py-1.5 shadow-sm hover:shadow-md transition-all hover:bg-white/90">
+                                <Search size={13} className="text-[#16161D]/40" />
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-28 md:w-36 text-xs font-mono text-[#16161D] bg-transparent outline-none placeholder:text-[#16161D]/30"
+                                />
+                                {searchQuery && (
+                                    <button onClick={() => setSearchQuery('')} className="text-[#16161D]/40 hover:text-[#A3785B] transition-colors cursor-pointer">
+                                        <X size={12} />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+
                         {/* LIST AREA */}
-                        <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col justify-start md:justify-center py-6 md:py-12 px-6 md:px-12 transition-all duration-500">
+                        <div className="flex-1 overflow-y-auto hide-scrollbar flex flex-col justify-start md:justify-center py-16 md:py-24 px-6 md:px-12 transition-all duration-500">
                             {filteredProjects.length === 0 ? (
                                 <div className="text-right text-[#16161D]/40 font-mono text-sm uppercase tracking-widest animate-in fade-in duration-500">
                                     No projects found.
@@ -189,61 +217,6 @@ const ProjectsPage = () => {
                                     ))}
                                 </div>
                             )}
-                        </div>
-
-                        {/* INNOVATIVE SIDE FILTER BAR */}
-                        <div className="w-12 md:w-16 flex-shrink-0 flex flex-col items-center py-12 border-l border-[#16161D]/5 bg-white/10 backdrop-blur-[2px]">
-                            {/* Search Toggle */}
-                            <div className="relative mb-12 flex flex-col items-center">
-                                <button
-                                    onClick={() => setIsSearchActive(!isSearchActive)}
-                                    className="w-8 h-8 rounded-full flex items-center justify-center text-[#16161D]/40 hover:text-[#A3785B] hover:bg-[#A3785B]/5 transition-all"
-                                >
-                                    {isSearchActive ? <X size={16} /> : <Search size={16} />}
-                                </button>
-
-                                {/* Expanding Search Input (Vertical/Rotated or just positioned absolutely) */}
-                                <div
-                                    className={`absolute top-10 right-0 md:right-full md:mr-2 bg-white/90 backdrop-blur-md border border-[#16161D]/10 rounded-lg shadow-xl overflow-hidden transition-all duration-300 origin-top-right md:origin-top-right ${isSearchActive ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}
-                                >
-                                    <input
-                                        type="text"
-                                        placeholder="Search projects..."
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-48 px-4 py-2 text-sm font-mono text-[#16161D] bg-transparent outline-none placeholder:text-[#16161D]/30"
-                                        autoFocus={isSearchActive}
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Vertical Category Pills */}
-                            <div className="flex flex-col gap-8 flex-1 justify-center">
-                                {categories.map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => setActiveCategory(cat)}
-                                        className={`group relative flex items-center justify-center transition-all duration-300`}
-                                        style={{ height: '80px' }}
-                                    >
-                                        <span
-                                            className={`font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] transition-all duration-300 transform -rotate-90 whitespace-nowrap
-                                                ${activeCategory === cat ? 'text-[#A3785B] font-bold' : 'text-[#16161D]/30 group-hover:text-[#16161D]/60'}
-                                            `}
-                                        >
-                                            {cat}
-                                        </span>
-                                        {/* Active Indicator Line */}
-                                        <div
-                                            className={`absolute right-[-1px] w-[2px] bg-[#A3785B] transition-all duration-300 ease-out`}
-                                            style={{
-                                                height: activeCategory === cat ? '40px' : '0px',
-                                                opacity: activeCategory === cat ? 1 : 0
-                                            }}
-                                        />
-                                    </button>
-                                ))}
-                            </div>
                         </div>
                     </div>
 

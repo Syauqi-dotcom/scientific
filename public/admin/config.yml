@@ -43,12 +43,14 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Year", name: "date", widget: "string"}
+      - {label: "Category", name: "category", widget: "string", required: false, hint: "e.g. Quantum, AI, Research, Web"}
       - {label: "Credit", name: "credit", widget: "string"}
       - {label: "Link URL", name: "link", widget: "string"}
       - {label: "Preview Image", name: "preview", widget: "image"}
       - {label: "Overview", name: "overview", widget: "text"}
       - {label: "Technology Development", name: "development", widget: "text", required: false}
       - {label: "Result", name: "result", widget: "text", required: false}
+      - {label: "☆ Show on Homepage", name: "selected", widget: "boolean", default: true, hint: "Check to feature this project in the homepage Selected Work scroll"}
       - label: "Tags"
         name: "tags"
         widget: "list"

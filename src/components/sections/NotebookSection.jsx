@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { ScrollReveal } from '../../utils/useScrollReveal';
+import SectionLabel from '../atoms/SectionLabel';
 
 const notebookModules = import.meta.glob('../../content/notebook/*.json', { eager: true });
 const notebookEntries = Object.values(notebookModules).map(mod => mod.default || mod).sort((a,b) => new Date(b.date) - new Date(a.date));
@@ -43,18 +44,23 @@ const NotebookSection = ({ expandedNotes, expandingNoteId, handleExpandNote }) =
     const featuredNotes = notebookEntries.slice(0, 2);
 
     return (
-        <section id="notebook" className="py-24 px-6">
-            <div className="max-w-4xl mx-auto">
+        <section id="notebook" className="py-24 px-6 border-t border-[#16161D]/5">
+            <div className="max-w-6xl mx-auto">
                 <ScrollReveal delay={0} direction="up">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="font-serif text-2xl text-[#16161D]">Research Notes</h2>
-                        <Link
-                            to="/publications"
-                            className="flex items-center gap-2 text-xs font-mono text-[#16161D]/40 hover:text-[#A3785B] transition-colors group"
-                        >
-                            <span className="uppercase tracking-wider font-bold">Publications</span>
-                            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                    <div className="grid md:grid-cols-[200px_1fr] gap-8 mb-12">
+                        <div className="pt-1">
+                            <SectionLabel index={2} label="Research Notes" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <h2 className="font-serif text-3xl md:text-4xl text-[#16161D]">Research Notes</h2>
+                            <Link
+                                to="/publications"
+                                className="flex items-center gap-2 text-xs font-mono text-[#16161D]/40 hover:text-[#A3785B] transition-colors group uppercase tracking-wider"
+                            >
+                                <span>Publications</span>
+                                <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </div>
                     </div>
                 </ScrollReveal>
                 <div className="grid md:grid-cols-2 gap-4">

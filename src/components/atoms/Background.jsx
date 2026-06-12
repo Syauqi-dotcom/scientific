@@ -9,7 +9,7 @@ const THEME = {
     },
 };
 
-const Background = ({ scrollY }) => {
+const Background = ({ scrollY, disabled }) => {
     const canvasRef = useRef(null);
     const scrollRef = useRef(scrollY);
 
@@ -20,7 +20,14 @@ const Background = ({ scrollY }) => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas?.getContext('2d');
+        if (!canvas || !ctx) return;
+
+        if (disabled) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
         let animationFrameId;
 
         // Configuration
@@ -168,7 +175,7 @@ const Background = ({ scrollY }) => {
             window.removeEventListener('mouseout', handleMouseLeave);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [disabled]);
 
     return (
         <div className="fixed inset-0 -z-10 overflow-hidden bg-[#EFF1F3]">

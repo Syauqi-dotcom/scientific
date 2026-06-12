@@ -1,6 +1,7 @@
 import React from 'react';
 import { Terminal, GraduationCap, Briefcase } from 'lucide-react';
 import { ScrollReveal } from '../../utils/useScrollReveal';
+import SectionLabel from '../atoms/SectionLabel';
 const brinLogo = `${import.meta.env.BASE_URL}assets/brin.png`;
 const ugmLogo = `${import.meta.env.BASE_URL}assets/ugm.png`;
 const sman3Logo = `${import.meta.env.BASE_URL}assets/sman3semarang.png`;
@@ -64,7 +65,14 @@ const ExperienceItem = ({ title, year, description, tags, logo, index }) => (
 );
 
 const ProfileSection = () => (
-    <section id="profile" className="py-24 px-6 relative">
+    <section id="profile" className="py-24 px-6 relative border-t border-[#16161D]/5">
+        {/* Section number label */}
+        <div className="max-w-6xl mx-auto mb-10">
+            <ScrollReveal delay={0} direction="up">
+                <SectionLabel index={0} label="About" />
+            </ScrollReveal>
+        </div>
+
         <div className="max-w-6xl mx-auto bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-[#16161D]/10 p-8 md:p-12">
             <div className="grid md:grid-cols-12 gap-12">
 
