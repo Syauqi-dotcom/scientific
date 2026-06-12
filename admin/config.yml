@@ -43,12 +43,14 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Year", name: "date", widget: "string"}
+      - {label: "Category", name: "category", widget: "string", required: false, hint: "e.g. Quantum, AI, Research, Web"}
       - {label: "Credit", name: "credit", widget: "string"}
       - {label: "Link URL", name: "link", widget: "string"}
       - {label: "Preview Image", name: "preview", widget: "image"}
       - {label: "Overview", name: "overview", widget: "text"}
       - {label: "Technology Development", name: "development", widget: "text", required: false}
       - {label: "Result", name: "result", widget: "text", required: false}
+      - {label: "☆ Show on Homepage", name: "selected", widget: "boolean", default: true, hint: "Check to feature this project in the homepage Selected Work scroll"}
       - label: "Tags"
         name: "tags"
         widget: "list"
@@ -59,6 +61,21 @@ collections:
         required: false
         field: {label: "Logo Image", name: "logo", widget: "image"}
           
+  - name: "experience"
+    label: "Experience"
+    folder: "src/content/experience"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    sortable_fields: ["period", "title"]
+    fields:
+      - {label: "Title (Organization)", name: "title", widget: "string", hint: "e.g. Badan Riset dan Inovasi Nasional (BRIN)"}
+      - {label: "Period", name: "period", widget: "string", hint: "e.g. 2026, 2025 (odd sem)"}
+      - {label: "Role", name: "role", widget: "string", hint: "e.g. Research Intern — Pusat Riset Fisika Kuantum"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Logo", name: "logo", widget: "image", required: false}
+
   - name: "notebook"
     label: "Research Notes"
     folder: "src/content/notebook"
@@ -72,3 +89,4 @@ collections:
       - {label: "Tag", name: "tag", widget: "string"}
       - {label: "Snippet", name: "snippet", widget: "text"}
       - {label: "More Explanation", name: "explanation", widget: "text", required: false}
+
